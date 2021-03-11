@@ -1,0 +1,14 @@
+<nav class="navbar navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/">Chat App</a>
+    <button *ngIf="isUserLogged" class="btn btn-sm btn-outline-dark">
+      Logout
+    </button>
+    <a
+      *ngIf="!isUserLogged"
+      routerLink="/login"
+      class="btn btn-sm btn-outline-success"
+      >Login</a
+    >
+  </div>
+</nav>
