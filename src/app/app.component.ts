@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -7,14 +7,19 @@ import { AngularFireAuth } from '@angular/fire/auth';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor(private auth: AngularFireAuth) {}
+  isLoadingPage = true;
+
+  constructor(
+    private authService: AuthService,
+    private changeDetectorRef: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
-    // this.auth
-    //   .signInWithEmailAndPassword('test@test.pl', '123456')
-    //   .then((user) => {
-    //     console.log(user);
-    //   })
-    //   .catch((err) => console.log(err));
+    this.authService.userInfoChangeEmiter.subscribe(
+      ({ isFetchingUserInfo }) => {
+        this.isLoadingPage = isFetchingUserInfo;
+        this.changeDetectorRef.detectChanges();
+      }
+    );
   }
 }

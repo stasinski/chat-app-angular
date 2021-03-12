@@ -1,5 +1,4 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -16,6 +15,7 @@ export class NavbarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isUserLogged = this.authService.isUser;
     this.authService.userInfoChangeEmiter.subscribe((data) => {
       this.isUserLogged = data.isUser;
       this.changeDetectorRef.detectChanges();
